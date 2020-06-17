@@ -65,17 +65,17 @@ def main():
             if len(image.shape) > 3:
                 image = tf.squeeze(image, axis=0)
 
-            plt.imshow(image)
-            if title:
-                plt.title(title)
+            #plt.imshow(image)
+            #if title:
+            #    plt.title(title)
 
         content_image = load_img(content_path)
         style_image = load_img(style_path)
 
-        plt.subplot(1, 2, 1)
-        imshow(content_image, 'Content Image')
-        plt.subplot(1, 2, 2)
-        imshow(style_image, 'Style Image')
+        #plt.subplot(1, 2, 1)
+        #imshow(content_image, 'Content Image')
+        #plt.subplot(1, 2, 2)
+        #imshow(style_image, 'Style Image')
 
         hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/1')
         stylized_image = hub_module(tf.constant(content_image), tf.constant(style_image))[0]
