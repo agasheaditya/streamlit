@@ -43,7 +43,21 @@ def main():
 
         content_path = tf.keras.utils.get_file(file_name, url)
         #content_path = tf.keras.utils.get_file('IMG-20161026-161718.jpg', 'https://i.postimg.cc/NGXBFxkw/IMG-20161026-161718.jpg')
+        #style_path = tf.keras.utils.get_file('The_Verge_GOT_Portrait_Wallpaper.0.png','https://cdn.vox-cdn.com/uploads/chorus_asset/file/16282418/The_Verge_GOT_Portrait_Wallpaper.0.png')
+
+    select_style = st.sidebar.selectbox("What style to apply?", ('Style 1', 'Style 2', 'Style 3'))
+    if select_style == 'Style 1':
         style_path = tf.keras.utils.get_file('The_Verge_GOT_Portrait_Wallpaper.0.png','https://cdn.vox-cdn.com/uploads/chorus_asset/file/16282418/The_Verge_GOT_Portrait_Wallpaper.0.png')
+        st.image('https://cdn.vox-cdn.com/uploads/chorus_asset/file/16282418/The_Verge_GOT_Portrait_Wallpaper.0.png',150,150)
+    if select_style == 'Style 2':
+        style_path = tf.keras.utils.get_file('Galaxy_Fold__00000__1_2.0.png','https://cdn.vox-cdn.com/uploads/chorus_asset/file/16165993/Galaxy_Fold__00000__1_2.0.png')
+        st.image('https://cdn.vox-cdn.com/uploads/chorus_asset/file/16165993/Galaxy_Fold__00000__1_2.0.png',150,150)
+    if select_style == 'Style 3':
+        style_path = tf.keras.utils.get_file('The_Verge_Wallpaper_31219_FIRE.0.png','https://cdn.vox-cdn.com/uploads/chorus_asset/file/16028741/The_Verge_Wallpaper_31219_FIRE.0.png')
+        st.image('https://cdn.vox-cdn.com/uploads/chorus_asset/file/16028741/The_Verge_Wallpaper_31219_FIRE.0.png',150,150)
+
+
+
         @st.cache(persist=True)
         def load_img(path_to_img):
             max_dim = 512
