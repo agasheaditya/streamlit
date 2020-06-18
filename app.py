@@ -11,9 +11,11 @@ import warnings
 def main():
     st.title("Neural Style Transfer")
     st.sidebar.title("Menu bar : Neural Style Transfer")
-    st.markdown("Wanna add some style 🖼️ to your clicks 📷 in funky programming way..")
+    st.markdown("Wanna add some style 🖼️ to your clicks 📷 in funky programming way like this..")
+    st.markdown("Please read How to guide.")
     st.sidebar.markdown("Apply filters to your clicks 📷.")
     st.sidebar.subheader(" Please do read How to guide.")
+    st.image('stylized.jpeg',400,400)
 
     if st.sidebar.checkbox('Show How to use and README.'):
         st.header("HOW TO . . .")
@@ -28,12 +30,8 @@ def main():
     if st.sidebar.checkbox("Enter Filename and URL"):
         file_name = st.text_input("File name goes here")
         url = st.text_input("URL of input content image goes here")
+        st.write("Ignore the Warning. Those will disappear after pasting links into text boxes.")
 
-
-    if file_name != "" and url != "":
-        content_path = tf.keras.utils.get_file(file_name, url)
-        #content_path = tf.keras.utils.get_file('IMG-20161026-161718.jpg', 'https://i.postimg.cc/NGXBFxkw/IMG-20161026-161718.jpg')
-        style_path = tf.keras.utils.get_file('The_Verge_GOT_Portrait_Wallpaper.0.png','https://cdn.vox-cdn.com/uploads/chorus_asset/file/16282418/The_Verge_GOT_Portrait_Wallpaper.0.png')
 
         def tensor_to_image(tensor):
             tensor = tensor*255
@@ -43,6 +41,9 @@ def main():
                 tensor = tensor[0]
             return PIL.Image.fromarray(tensor)
 
+        content_path = tf.keras.utils.get_file(file_name, url)
+        #content_path = tf.keras.utils.get_file('IMG-20161026-161718.jpg', 'https://i.postimg.cc/NGXBFxkw/IMG-20161026-161718.jpg')
+        style_path = tf.keras.utils.get_file('The_Verge_GOT_Portrait_Wallpaper.0.png','https://cdn.vox-cdn.com/uploads/chorus_asset/file/16282418/The_Verge_GOT_Portrait_Wallpaper.0.png')
         @st.cache(persist=True)
         def load_img(path_to_img):
             max_dim = 512
@@ -72,15 +73,15 @@ def main():
         content_image = load_img(content_path)
         style_image = load_img(style_path)
 
-        #plt.subplot(1, 2, 1)
-        #imshow(content_image, 'Content Image')
-        #plt.subplot(1, 2, 2)
-        #imshow(style_image, 'Style Image')
-
         hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/1')
         stylized_image = hub_module(tf.constant(content_image), tf.constant(style_image))[0]
         if st.sidebar.checkbox("Show Stylized Image"):
             st.image(tensor_to_image(stylized_image))
+    st.sidebar.markdown('---')
+    if st.sidebar.checkbox("Show credits"):
+        st.write("Created by: Aditya Agashe")
+        st.markdown("https://github.com/agasheaditya")
+        st.markdown("https://www.linkedin.com/in/asagashe/")
 
 
 
